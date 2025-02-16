@@ -525,7 +525,10 @@ export function transform<DB, TB extends keyof DB>(
   return fnWithAdditionalParameters(
     eb,
     'ST_Transform',
-    [transformGeoJSON(eb, geom, optionsWithDefault), sql.val<number>(srid)],
+    [
+      transformGeoJSON(eb, geom, optionsWithDefault),
+      sql.raw(`${parseInt(`${srid}`)}::int`),
+    ],
     optionsWithDefault,
   );
 }

@@ -966,9 +966,9 @@ describe('transform', () => {
       .select((eb) => stf(eb).transform('geoma', 1).as('alias'));
     const compiled = query.compile();
     expect(compiled.sql).toBe(
-      'select ST_Transform("geoma", $1) as "alias" from "test"',
+      'select ST_Transform("geoma", 1::int) as "alias" from "test"',
     );
-    expect(compiled.parameters).toStrictEqual([1]);
+    expect(compiled.parameters).toStrictEqual([]);
   });
 });
 
