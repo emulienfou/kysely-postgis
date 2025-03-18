@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import { Kysely } from 'kysely';
-import { stf } from '.';
+import { makePoint, stf } from '.';
 import { Polygon } from 'geojson';
 import {
   fnCompare,
@@ -1052,5 +1052,22 @@ describe('m', () => {
     const compiled = query.compile();
     expect(compiled.sql).toBe('select ST_M("geoma") as "alias" from "test"');
     expect(compiled.parameters).toStrictEqual([]);
+  });
+});
+
+describe('makePoint', () => {
+  test('Column argument', () => {
+    const query = db
+      .selectFrom('test')
+      .select((eb) =>
+        stf(eb).makePoint(-71.1043443253471, 42.3150676015829).as('alias'),
+      );
+    const compiled = query.compile();
+    expect(compiled.sql).toBe(
+      'select ST_MakePoint($1, $2) as "alias" from "test"',
+    );
+    expect(compiled.parameters).toStrictEqual([
+      -71.1043443253471, 42.3150676015829,
+    ]);
   });
 });

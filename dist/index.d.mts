@@ -58,6 +58,7 @@ declare function x<DB, TB extends keyof DB>(eb: ExpressionBuilder<DB, TB>, geom:
 declare function y<DB, TB extends keyof DB>(eb: ExpressionBuilder<DB, TB>, geom: Geometry | ReferenceExpression<DB, TB>, options?: Partial<Options>): kysely.ExpressionWrapper<DB, TB, number>;
 declare function z<DB, TB extends keyof DB>(eb: ExpressionBuilder<DB, TB>, geom: Geometry | ReferenceExpression<DB, TB>, options?: Partial<Options>): kysely.ExpressionWrapper<DB, TB, number>;
 declare function m<DB, TB extends keyof DB>(eb: ExpressionBuilder<DB, TB>, geom: Geometry | ReferenceExpression<DB, TB>, options?: Partial<Options>): kysely.ExpressionWrapper<DB, TB, number>;
+declare function makePoint<DB, TB extends keyof DB>(eb: ExpressionBuilder<DB, TB>, x: number | ReferenceExpression<DB, TB>, y: number | ReferenceExpression<DB, TB>, z?: number | ReferenceExpression<DB, TB>, m?: number | ReferenceExpression<DB, TB>, options?: Partial<Options>): kysely.ExpressionWrapper<DB, TB, string>;
 declare function stf<DB, TB extends keyof DB>(eb: ExpressionBuilder<DB, TB>): {
     asGeoJSON: (column: ReferenceExpression<DB, TB>, options?: Partial<OptionsAsGeoJSON> | undefined) => kysely.ExpressionWrapper<DB, TB, string>;
     geomFromGeoJSON: (value: Geometry | ReferenceExpression<DB, TB>, options?: Partial<Options> | undefined) => kysely.ExpressionWrapper<DB, TB, string>;
@@ -98,9 +99,10 @@ declare function stf<DB, TB extends keyof DB>(eb: ExpressionBuilder<DB, TB>): {
     y: (geom: Geometry | ReferenceExpression<DB, TB>, options?: Partial<Options> | undefined) => kysely.ExpressionWrapper<DB, TB, number>;
     z: (geom: Geometry | ReferenceExpression<DB, TB>, options?: Partial<Options> | undefined) => kysely.ExpressionWrapper<DB, TB, number>;
     m: (geom: Geometry | ReferenceExpression<DB, TB>, options?: Partial<Options> | undefined) => kysely.ExpressionWrapper<DB, TB, number>;
+    makePoint: (x: number | ReferenceExpression<DB, TB>, y: number | ReferenceExpression<DB, TB>, z?: number | ReferenceExpression<DB, TB> | undefined, m?: number | ReferenceExpression<DB, TB> | undefined, options?: Partial<Options> | undefined) => kysely.ExpressionWrapper<DB, TB, string>;
 };
 
 declare let defaultOptions: Options;
 declare function setDefaultOptions(options: Partial<Options>): void;
 
-export { type Options, type OptionsArea, type OptionsAsGeoJSON, type OptionsFromGeoText, area, asGeoJSON, asText, boundary, buffer, centroid, contains, covers, crosses, dWithin, defaultOptions, difference, disjoint, distance, distanceSphere, equals, expand, geoHash, geomFromGeoJSON, geomFromText, intersection, intersects, isValid, m, makeValid, maxDistance, overlaps, scale, segmentize, setDefaultOptions, setSRID, simplify, simplifyPreserveTopology, srid, stf, transform, translate, union, within, x, y, z };
+export { type Options, type OptionsArea, type OptionsAsGeoJSON, type OptionsFromGeoText, area, asGeoJSON, asText, boundary, buffer, centroid, contains, covers, crosses, dWithin, defaultOptions, difference, disjoint, distance, distanceSphere, equals, expand, geoHash, geomFromGeoJSON, geomFromText, intersection, intersects, isValid, m, makePoint, makeValid, maxDistance, overlaps, scale, segmentize, setDefaultOptions, setSRID, simplify, simplifyPreserveTopology, srid, stf, transform, translate, union, within, x, y, z };
